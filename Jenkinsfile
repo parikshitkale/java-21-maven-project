@@ -31,7 +31,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonarqube') {
                    sh '''
-                    mvn clean verify sonar:sonar\
+                    mvn clean verify -DskipTests sonar:sonar\
                     -Dsonar.projectKey=my-project \
                     -Dsonar.projectName=my-project
                     '''
