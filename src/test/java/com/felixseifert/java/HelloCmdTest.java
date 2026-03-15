@@ -16,7 +16,9 @@ public class HelloCmdTest extends AbstractHelloTest {
   @BeforeAll
   static void beforeAll() throws IOException, InterruptedException {
     assumeFalse(isOsWindows()); // Do not run cmd tests on Windows
-    final Process build = new ProcessBuilder("make", "build").start();
+    ProcessBuilder pb = new ProcessBuilder("make", "build");
+pb.directory(new java.io.File("src"));
+Process build = pb.start();
     build.waitFor();
   }
 
