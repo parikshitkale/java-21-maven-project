@@ -59,7 +59,7 @@ pipeline {
                     
                     sh "docker build -t ${REPO_NAME}:${IMAGE_TAG} ."
 
-                    sh "echo Image Tag: ${env.IMAGE_TAG}""
+                    sh "echo Image Tag: ${env.IMAGE_TAG}"
             }
           }
     }
