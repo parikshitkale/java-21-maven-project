@@ -58,7 +58,7 @@ pipeline {
                     // Create tag
                     env.IMAGE_TAG = "${branch}-${env.BUILD_NUMBER}"
                     
-                    sh "docker build -t ${REPO_NAME}:${IMAGE_TAG} ."
+                    sh "docker build -t ${env.REPO_NAME}:${IMAGE_TAG} ."
 
                     sh "echo Image Tag: ${env.IMAGE_TAG}"
                 }
