@@ -48,6 +48,7 @@ pipeline {
         }
           stage('Build Image') {
             steps {
+                script{
                   // Get branch name
                     def branch = env.BRANCH_NAME ?: "unknown"
 
@@ -60,6 +61,7 @@ pipeline {
                     sh "docker build -t ${REPO_NAME}:${IMAGE_TAG} ."
 
                     sh "echo Image Tag: ${env.IMAGE_TAG}"
+                }
             }
           }
     }
