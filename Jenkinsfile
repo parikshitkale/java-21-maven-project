@@ -2,6 +2,9 @@ pipeline {
     agent { 
        label 'jenkins-agent1'
           }
+    environment {
+        ECR_URI = "283744739314.dkr.ecr.eu-north-1.amazonaws.com/my-repo"
+    }
       tools {
           jdk 'jdk-21'
           maven 'maven'
@@ -43,5 +46,21 @@ pipeline {
         waitForQualityGate abortPipeline: true
     }
         }
+          stage('Build Image') {
+            steps {
+                  // Get branch name
+                    def branch = env.BRANCH_NAME ?: "unknown"
+
+                    // Clean branch name (replace / with -)
+                    branch = branch.replaceAll("/", "-")
+
+                    // Create tag
+                    env.IMAGE_TAG = "${branch}-${env.BUILD_NUMBER}"
+                    
+                    sh "docker build -t ${REPO_NAME}:${IMAGE_TAG} ."
+
+                    sh "echo Image Tag: ${env.IMAGE_TAG}""
+            }
+          }
     }
 }
