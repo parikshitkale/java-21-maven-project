@@ -9,7 +9,7 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 WORKDIR /app
 
 # -------- Copy artifact --------
-COPY target/*.jar app.jar
+COPY target/java*.jar app.jar
 
 # -------- Set permissions --------
 RUN chown -R appuser:appgroup /app
