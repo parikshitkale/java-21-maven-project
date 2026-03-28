@@ -13,12 +13,7 @@ pipeline {
 
         stage('Verify Checkout') {
             steps {
-                sh '''
-                echo "Current directory:"
-                pwd
-                echo "Listing files:"
-                ls -l
-                '''
+                checkout scm
             }
         }
 
