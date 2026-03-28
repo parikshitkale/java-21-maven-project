@@ -77,7 +77,7 @@ pipeline {
             repo   = repo.replaceAll("/", "-")
 
             // Final tag
-            def imageTag = "${repo}-${branch}-${env.BUILD_NUMBER}"
+            env.imageTag = "${repo}-${branch}-${env.BUILD_NUMBER}"
 
             sh """
                 docker build -t my-app:${imageTag} .
