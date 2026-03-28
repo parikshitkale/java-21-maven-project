@@ -75,7 +75,7 @@ pipeline {
             env.imageTag = "${repo}-${branch}-${env.BUILD_NUMBER}"
 
             sh """
-                docker build -t ${imageTag} .
+                docker build -t ${imageTag}:not-latest .
             """
 
             echo "Image Tag: ${imageTag}"
