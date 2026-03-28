@@ -80,7 +80,7 @@ pipeline {
             env.imageTag = "${repo}-${branch}-${env.BUILD_NUMBER}"
 
             sh """
-                docker build -t ${ECR_URI}/my-repo:${imageTag} .
+                docker build -t ${imageTag} .
             """
 
             echo "Image Tag: ${imageTag}"
@@ -98,7 +98,7 @@ pipeline {
                 aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 283744739314.dkr.ecr.eu-north-1.amazonaws.com
 
                 # Tag image for ECR
-                docker tag ${ECR_URI}:${imageTag}
+                docker ${imageTag} ${ECR_URI}/my-repo:${imageTag}
 
                 # Push image
                 docker push ${ECR_URI}/my-repo:${imageTag}
