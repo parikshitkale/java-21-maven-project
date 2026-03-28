@@ -56,19 +56,21 @@ pipeline {
           stage('Build Image') {
             steps {
                 script {
-                    
+                     // Try Jenkins env first, fallback to git
+            def branch = env.BRANCH_NAME ?: env.GIT_BRANCH
 
-            // Get branch name from Git
-            def branch = sh(
-                script: "git rev-parse --abbrev-ref HEAD",
-                returnStdout: true
-            ).trim()
+            if (!branch) {
+                branch = sh(
+                    script: "git name-rev --name-only HEAD",
+                    returnStdout: true
+                ).trim()
+            }
 
-            // Clean branch name (replace / with -)
-            def cleanBranch = branch.replaceAll("/", "-")
+            // Clean branch name
+            branch = branch.replaceAll("origin/", "")
+            branch = branch.replaceAll("/", "-")
 
-            // Final tag
-            def imageTag = "${cleanBranch}-${env.BUILD_NUMBER}"
+            def imageTag = "${branch}-${env.BUILD_NUMBER}"
 
             sh """
                 docker build -t my-app:${imageTag} .
