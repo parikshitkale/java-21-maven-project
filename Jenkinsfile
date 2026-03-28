@@ -73,8 +73,8 @@ pipeline {
             }
 
             // Clean values
-            branch = branch.replaceAll("origin/", "").replaceAll("/", "-")
-            repo   = repo.replaceAll("/", "-")
+            branch = branch.replaceAll("origin/", "").replaceAll("/", "-").toLowerCase()
+            repo   = repo.replaceAll("/", "-").toLowerCase()
 
             // Final tag
             env.imageTag = "${repo}-${branch}-${env.BUILD_NUMBER}"
