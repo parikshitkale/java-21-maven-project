@@ -97,6 +97,9 @@ pipeline {
 
                 # Push image
                 docker push ${ECR_URI}:${imageTag}
+
+                docker rmi ${imageTag}
+                docker rmi ${ECR_URI}:${imageTag}
             """
         }
     }
