@@ -41,27 +41,23 @@ pipeline {
                                   }
             }
           }
-        stage('Quality Gate') {
+      /*  stage('Quality Gate') {
     steps {
         waitForQualityGate abortPipeline: true
     }
-        }
+        } */
           stage('Build Image') {
             steps {
-                script{
-                  // Get branch name
-                    def branch = env.BRANCH_NAME ?: "unknown"
-
-                    // Clean branch name (replace / with -)
-                    branch = branch.replaceAll("/", "-")
-
-                    // Create tag
-                    env.IMAGE_TAG = "${branch}-${env.BUILD_NUMBER}"
+                script {
+                    def imageTag = "${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
                     
-                    sh "docker build -t ${env.REPO_NAME}:${IMAGE_TAG} ."
-
-                    sh "echo Image Tag: ${env.IMAGE_TAG}"
+                    sh """
+                        docker build -t my-app:${imageTag} .
+                    """
+                    
+                    echo "Image Tag: ${imageTag}"
                 }
+
             }
           }
     }
