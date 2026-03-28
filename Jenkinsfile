@@ -98,7 +98,7 @@ pipeline {
                 aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 283744739314.dkr.ecr.eu-north-1.amazonaws.com
 
                 # Tag image for ECR
-                docker tag ${ECR_URI}:${imageTag}
+               // docker tag ${ECR_URI}:${imageTag}
 
                 # Push image
                 docker push ${ECR_URI}/my-repo:${imageTag}
