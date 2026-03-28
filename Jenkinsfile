@@ -30,11 +30,16 @@ pipeline {
                 '''
           }
         }
+        stage('Build'){
+            steps{
+                 mvn clean verify -Dmaven.test.failure.ignore=true
+            }
+        }
           stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube') {
                    sh '''
-                    mvn clean verify -Dmaven.test.failure.ignore=true sonar:sonar\
+                    sonar:sonar\
                     -Dsonar.projectKey=my-project \
                     -Dsonar.projectName=my-project
                     '''
