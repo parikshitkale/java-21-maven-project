@@ -101,7 +101,7 @@ pipeline {
                 docker tag ${ECR_URI}:${imageTag}
 
                 # Push image
-                docker push ${ECR_URI}:${imageTag}
+                docker push ${ECR_URI}/my-repo:${imageTag}
             """
         }
     }
