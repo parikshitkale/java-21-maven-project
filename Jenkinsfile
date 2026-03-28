@@ -56,13 +56,25 @@ pipeline {
           stage('Build Image') {
             steps {
                 script {
-                    def imageTag = "${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
                     
-                    sh """
-                        docker build -t my-app:${imageTag} .
-                    """
-                    
-                    echo "Image Tag: ${imageTag}"
+
+            // Get branch name from Git
+            def branch = sh(
+                script: "git rev-parse --abbrev-ref HEAD",
+                returnStdout: true
+            ).trim()
+
+            // Clean branch name (replace / with -)
+            def cleanBranch = branch.replaceAll("/", "-")
+
+            // Final tag
+            def imageTag = "${cleanBranch}-${env.BUILD_NUMBER}"
+
+            sh """
+                docker build -t my-app:${imageTag} .
+            """
+
+            echo "Image Tag: ${imageTag}"
                 }
 
             }
