@@ -32,8 +32,10 @@ pipeline {
         }
         stage('Build'){
             steps{
+                sh '''
                  mvn clean verify -Dmaven.test.failure.ignore=true
-            }
+                 '''
+        }
         }
           stage('SonarQube Analysis') {
             steps {
