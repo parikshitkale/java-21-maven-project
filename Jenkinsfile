@@ -80,7 +80,7 @@ pipeline {
             env.imageTag = "${repo}-${branch}-${env.BUILD_NUMBER}"
 
             sh """
-                docker build -t my-app:${imageTag} .
+                docker build -t ${imageTag} .
             """
 
             echo "Image Tag: ${imageTag}"
